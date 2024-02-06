@@ -7,7 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangingProcessDetector", "H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangingProcess", "HangingProcess\HangingProcess.csproj", "{51D6172C-CA8B-4315-B745-6C5D6841F934}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangingForms", "HangingForms\HangingForms.csproj", "{27FA687A-182E-4A66-B4A7-257E461312BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangingForms", "HangingForms\HangingForms.csproj", "{27FA687A-182E-4A66-B4A7-257E461312BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DAC7C18F-08B6-4262-A1FE-305C29C52A0B}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
