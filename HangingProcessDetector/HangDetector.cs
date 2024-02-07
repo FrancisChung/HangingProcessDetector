@@ -96,7 +96,8 @@ namespace HangingProcessDetector
                        if (!IsProcessResponding(targetProcess))
                        {
                            // Kill the process if it's not responding after the timeout
-                           targetProcess.Kill();
+                           // targetProcess.Kill();
+                           Console.WriteLine($"The process '{processName}' is hung.");
                        }
                    }, null, 0, timeoutMilliseconds))
             {
