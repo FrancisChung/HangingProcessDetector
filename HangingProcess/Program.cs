@@ -3,11 +3,7 @@
 using HangingProcessDetector;
 
 Console.WriteLine("Starting Hanging Process");
-HangingProcess hangingProcess = new HangingProcess();
-hangingProcess.Start2();
+var hangingProcess = new HangingProcess();
+hangingProcess.StartSqrtCalc();
 Console.WriteLine("Shouldn't see this message");
-/* Create a new process with the following features
- - Use C# to create a new process
- - There is one method, Load()
- - Load() creates a hanging process
- */
+Console.ReadLine();
