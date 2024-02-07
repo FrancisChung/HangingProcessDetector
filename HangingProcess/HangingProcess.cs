@@ -31,7 +31,17 @@ namespace HangingProcessDetector
                 Thread.Sleep(10000000);
             }
         }
-        
+
+
+        public void StartThreadSpinWait()
+        {
+            while (true)
+            {
+                Console.WriteLine("Running Hanging Process <Thread.SpinWait>...");
+                Thread.SpinWait(1000000);
+            }
+        }
+
 
     }
 }
