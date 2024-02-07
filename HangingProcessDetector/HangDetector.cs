@@ -21,7 +21,9 @@ namespace HangingProcessDetector
         private static extern bool IsHungAppWindow(IntPtr hwnd);
         [DllImport("user32.dll")]
         private static extern uint GetWindowThreadProcessId(IntPtr hwnd, out uint procId);
-        
+
+        #region Main Entrypoints
+
 
         public bool IsProcessRunningUsingHungAppAPI(string process)
         {
@@ -29,44 +31,30 @@ namespace HangingProcessDetector
             return IsProcessHungUsingHungAppWindow(hangingProcess);
         }
 
+
+
         public bool IsProcessRunningUsingTimer(string process)
         {
-            var result = IsProcessHungParent(process);
-            return result;
-        }
-
-
-        private bool IsProcessHungParent(string processName)
-        {
-
-            Console.WriteLine($"Checking if process '{processName}' is hung...");
+            Console.WriteLine($"Checking if process '{process}' is hung...");
             int timeoutMilliseconds = 5000; // Set your desired timeout in milliseconds (e.g., 5000 for 5 seconds)
 
-            bool isHung = IsProcessHungUsingTimer(processName, timeoutMilliseconds);
+            bool isHung = IsProcessHungUsingTimer(process, timeoutMilliseconds);
 
             if (isHung)
             {
-                Console.WriteLine($"The process '{processName}' is hung.");
+                Console.WriteLine($"The process '{process}' is hung.");
                 return true;
             }
             else
             {
-                Console.WriteLine($"The process '{processName}' is running normally.");
+                Console.WriteLine($"The process '{process}' is running normally.");
                 return false;
             }
         }
 
+        #endregion
 
-
-        private static Process? FindHangingProcess(string process)
-        {
-            Process[] processes = Process.GetProcessesByName(process);
-            Console.WriteLine($"Number of Hanging Process: {processes.Length}");
-
-            Process? hangingProcess =  processes.FirstOrDefault();
-            return hangingProcess;
-        }
-
+        #region IsProcessHungUsingTimer API
 
         /// <summary>
         /// Works with UI, not with processes
@@ -92,14 +80,14 @@ namespace HangingProcessDetector
 
             // Create a timer to periodically check the process's responsiveness
             using (var timer = new Timer(state =>
-                   {
-                       if (!IsProcessResponding(targetProcess))
-                       {
-                           // Kill the process if it's not responding after the timeout
-                           // targetProcess.Kill();
-                           Console.WriteLine($"The process '{processName}' is hung.");
-                       }
-                   }, null, 0, timeoutMilliseconds))
+            {
+                if (!IsProcessResponding(targetProcess))
+                {
+                    // Kill the process if it's not responding after the timeout
+                    // targetProcess.Kill();
+                    Console.WriteLine($"The process '{processName}' is hung.");
+                }
+            }, null, 0, timeoutMilliseconds))
             {
                 // Let the timer check for responsiveness for a certain duration
                 Thread.Sleep(timeoutMilliseconds);
@@ -135,7 +123,9 @@ namespace HangingProcessDetector
             internal static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
         }
 
-        #region NotWorking
+        #endregion
+
+        #region IsHungAppWindow Windows API
 
         private bool IsProcessHungUsingHungAppWindow(Process? hangingProcess)
         {
@@ -186,6 +176,24 @@ namespace HangingProcessDetector
         }
 
         #endregion
+
+
+
+
+        #region Common Functions
+
+        private static Process? FindHangingProcess(string process)
+        {
+            Process[] processes = Process.GetProcessesByName(process);
+            Console.WriteLine($"Number of Hanging Process: {processes.Length}");
+
+            Process? hangingProcess =  processes.FirstOrDefault();
+            return hangingProcess;
+        }
+
+        #endregion
+
+
 
     }
 }
