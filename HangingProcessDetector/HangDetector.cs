@@ -22,6 +22,7 @@ namespace HangingProcessDetector
         [DllImport("user32.dll")]
         private static extern uint GetWindowThreadProcessId(IntPtr hwnd, out uint procId);
         
+
         public bool IsProcessRunningUsingHungAppAPI(string process)
         {
             var hangingProcess = FindHangingProcess(process);
@@ -67,7 +68,12 @@ namespace HangingProcessDetector
         }
 
 
-
+        /// <summary>
+        /// Works with UI, not with processes
+        /// </summary>
+        /// <param name="processName"></param>
+        /// <param name="timeoutMilliseconds"></param>
+        /// <returns></returns>
         static bool IsProcessHungUsingTimer(string processName, int timeoutMilliseconds)
         {
             Process[] processes = Process.GetProcessesByName(processName);
@@ -145,7 +151,7 @@ namespace HangingProcessDetector
             }
         }
 
-        public bool IsWindowHung(IntPtr hwnd)
+        private bool IsWindowHung(IntPtr hwnd)
         {
             if (IsHungAppWindow(hwnd))
             {
