@@ -10,11 +10,19 @@
         {
             Thread.Sleep(1000);
             var detector = new HangDetector();
-            var hangProcessName = "HangingForms";
+            // var hangProcessName = "HangingForms";
+            // hangProcessName = "HangingProcess";
+            // var hangProcessName = "DeadlockedProcess";
+            var hangProcessName = "RunningProcess";
             for (int i = 0; i < 10; i++)
             {
-                var hanging = detector.IsProcessRunningUsingHungAppAPI(hangProcessName);
-                Console.WriteLine($"Is {hangProcessName} hanging?: {hanging}");
+                Console.WriteLine($"Loop {i}");
+                var hangingAPI = detector.IsProcessRunningUsingHungAppAPI(hangProcessName);
+                Console.WriteLine($"Is {hangProcessName} hanging (API)?: {hangingAPI}");
+
+                var hangingTimer = detector.IsProcessRunningUsingTimer(hangProcessName);
+                Console.WriteLine($"Is {hangProcessName} hanging (timer)?: {hangingTimer}");
+                Console.WriteLine();
                 Console.ReadLine();
             }
  
