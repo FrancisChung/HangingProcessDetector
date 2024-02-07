@@ -9,7 +9,7 @@ namespace HangingProcessDetector
     internal class HangingProcess
     {
 
-        public void Start()
+        public void StartSqrtCalc()
         {
             while (true)
             {
@@ -18,11 +18,12 @@ namespace HangingProcessDetector
                 for (int i = 0; i < 1000000000; i++)
                 {
                     double result = Math.Sqrt(i);
+                    Thread.Sleep(1000);
                 }
             }
         }
 
-        public void Start2()
+        public void StartThreadSleep()
         {
             while (true)
             {
